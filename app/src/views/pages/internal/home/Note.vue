@@ -5,21 +5,36 @@
         close-delay="400">
         <v-card
             class="note"
+            :class="{check: note.check}"
             flat>
-            <v-btn
-                v-show="hover"
-                icon
-                small
-                class="check">
-                <v-icon>fas fa-check-circle</v-icon>
-            </v-btn>
-            <v-btn
-                v-show="hover"
-                icon
-                small
-                class="mark">
-                <v-icon>fas fa-thumbtack</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                        v-show="hover"
+                        v-on="on"
+                        icon
+                        small
+                        @click="check(note)"
+                        class="check">
+                        <v-icon>fas fa-check-circle</v-icon>
+                    </v-btn>
+                </template>
+                <span>Selecionar nota</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                        v-show="hover"
+                        v-on="on"
+                        icon
+                        small
+                        @click="fix(note)"
+                        class="mark">
+                        <v-icon>fas fa-thumbtack</v-icon>
+                    </v-btn>
+                </template>
+                <span>Fixar nota</span>
+            </v-tooltip>
             <v-container class="note-content">
                 <v-row class="title">
                     {{note.title}}
@@ -34,21 +49,49 @@
                     icon
                     x-small>
                 </v-btn>
-                <v-btn
-                    v-show="hover"
-                    icon
-                    x-small>
-                    <v-icon>fas fa-palette</v-icon>
-                </v-btn>
-                <v-btn
-                    v-show="hover"
-                    icon
-                    x-small>
-                    <v-icon>fas fa-archive</v-icon>
-                </v-btn>
+                <v-menu offset-x
+                        offset-y
+                        v-show="hover">
+                    <template v-slot:activator="{ on: menu }">
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on: tooltip }">
+                                <v-btn
+                                    v-show="hover"
+                                    icon
+                                    x-small
+                                    v-on="{ ...tooltip, ...menu }">
+                                    <v-icon>fas fa-palette</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Mais</span>
+                        </v-tooltip>
+                    </template>
+                    <v-list>
+                        <v-list-item @click="remove(note)">
+                            <v-list-item-title>Excluir nota</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item @click="addLabel(note)">
+                            <v-list-item-title>Adicionar marcador</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            v-show="hover"
+                            v-on="on"
+                            @click="archive(note)"
+                            icon
+                            x-small>
+                            <v-icon>fas fa-archive</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Arquivar nota</span>
+                </v-tooltip>
                 <v-spacer/>
                 <v-menu offset-x
                         offset-y
+                        v-model="menuNote"
                         v-show="hover">
                     <template v-slot:activator="{ on: menu }">
                         <v-tooltip bottom>
@@ -65,31 +108,12 @@
                         </v-tooltip>
                     </template>
                     <v-list>
-                        <v-list-item>
+                        <v-list-item @click="remove(note)">
                             <v-list-item-title>Excluir nota</v-list-item-title>
                         </v-list-item>
-                        <v-list-item>
-                            <v-list-item-title>Excluir nota</v-list-item-title>
+                        <v-list-item @click="addLabel(note)">
+                            <v-list-item-title>Adicionar marcador</v-list-item-title>
                         </v-list-item>
-                        <v-menu offset-x
-                                offset-y>
-                            <template v-slot:activator="{ on }">
-                                <v-list>
-                                    <v-list-item
-                                        v-on="{ on }">
-                                        <v-list-item-title>Excluir nota 2</v-list-item-title>
-                                    </v-list-item>
-                                </v-list>
-                            </template>
-                            <v-list>
-                                <v-list-item>
-                                    <v-list-item-title>Excluir nota 2</v-list-item-title>
-                                </v-list-item>
-                                <v-list-item>
-                                    <v-list-item-title>Excluir nota 2</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
                     </v-list>
                 </v-menu>
             </v-card-actions>
@@ -107,8 +131,28 @@
         },
         data: () => ({
             hoverOn: false,
+            menuNote: false,
+            menuLabel: false,
         }),
-        methods: {}
+        methods: {
+            fix(note) {
+                this.$emit('mark', note)
+            },
+            check(note) {
+                this.$emit('check', note)
+            },
+            remove(note) {
+                this.$emit('remove', note)
+            },
+            archive(note) {
+                this.$emit('archive', note)
+            },
+            addLabel(note) {
+                this.menuNote = false
+                this.menuLabel = true
+                this.$emit('mark', note)
+            },
+        }
     }
 </script>
 
@@ -129,5 +173,8 @@
             position absolute
             left 85%
             top 8px
+    .check
+        border 2px solid #ccc !important
+
 </style>
 

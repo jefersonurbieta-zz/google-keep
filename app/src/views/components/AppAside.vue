@@ -59,7 +59,6 @@
             drawer: null,
             items: [
                 { icon: 'lightbulb_outline', text: 'Notes' },
-                { icon: 'touch_app', text: 'Reminders' },
                 { divider: true },
                 { heading: 'Labels' },
                 { icon: 'add', text: 'Create new label' },
