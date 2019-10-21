@@ -1,0 +1,32 @@
+version: '3'
+services:
+    arremate-cambio-app:
+        image: registry.gitlab.com/jethas/arremate-cambio/arremate-cambio/app:latest
+        restart: unless-stopped
+        ports:
+            - 80:80
+            - 443:443
+        env_file:
+            - environment.env
+        environment:
+            - PROXY_PASS=arremate-cambio-api
+            - PROXY_EMAIL=jeferson.urbieta@gmail.com
+        volumes:
+            - ./letsencrypt/:/etc/letsencrypt/
+        networks:
+            - mynet
+        depends_on:
+            - arremate-cambio-api
+
+    arremate-cambio-api:
+        image: registry.gitlab.com/jethas/arremate-cambio/arremate-cambio/api:latest
+        restart: unless-stopped
+        env_file:
+            - environment.env
+        environment:
+            - PORT=80
+        networks:
+            - mynet
+
+networks:
+    mynet:

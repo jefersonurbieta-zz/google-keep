@@ -1,0 +1,80 @@
+{
+    "name": "vuestagram-api",
+    "version": "1.0.0-SNAPSHOT",
+    "description": "API do projeto arremate câmbio",
+    "private": true,
+    "main": "index.js",
+    "license": "UNLICENSED",
+    "bin": {
+        "editor-texto-api": "./run"
+    },
+    "scripts": {
+        "build": "echo build",
+        "start": "node -r esm index.js | bunyan -o short",
+        "serve": "nodemon -r esm index.js | bunyan -o short",
+        "lint": "eslint src/**/*.mjs"
+    },
+    "files": [
+        "src/**",
+        "templates/**",
+        "main.mjs",
+        "index.js",
+        "run",
+        ".env"
+    ],
+    "dependencies": {
+        "@codate/auth": "^2.5.5",
+        "@codate/commons": "^2.5.2",
+        "@codate/email": "^2.6.0",
+        "@codate/file": "^2.5.1",
+        "@sentry/node": "^5.6.2",
+        "archiver": "^3.0.0",
+        "body-parser": "^1.18.3",
+        "bunyan": "^1.8.12",
+        "commander": "^2.20.0",
+        "cors": "^2.8.4",
+        "dotenv": "^6.1.0",
+        "esm": "^3.0.49",
+        "express": "^5.0.0-alpha.7",
+        "express-validation": "^1.0.2",
+        "font-finder": "^1.0.4",
+        "helmet": "^3.12.1",
+        "html-pdf": "^2.2.0",
+        "http": "0.0.0",
+        "joi": "^13.6.0",
+        "jsonwebtoken": "^8.5.1",
+        "lodash": "^4.17.11",
+        "moment": "^2.22.2",
+        "moment-timezone": "^0.5.17",
+        "mongodb-migrations": "^0.8.5",
+        "mongoose": "^5.1.3",
+        "nodemailer": "^4.6.7",
+        "shelljs": "^0.8.3",
+        "socket.io": "^2.2.0",
+        "socket.io-adapter-mongo": "^2.0.3",
+        "uuid": "^3.3.2",
+        "winston": "^3.2.1"
+    },
+    "devDependencies": {
+        "eslint": "^6.2.2",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-standard": "^12.0.0",
+        "eslint-plugin-import": "^2.16.0",
+        "eslint-plugin-node": "^8.0.1",
+        "eslint-plugin-promise": "^4.0.1",
+        "eslint-plugin-standard": "^4.0.0"
+    },
+    "eslintConfig": {
+        "extends": "standard",
+        "rules": {
+            "indent": [
+                "error",
+                4
+            ],
+            "semi": [
+                2,
+                "never"
+            ]
+        }
+    }
+}

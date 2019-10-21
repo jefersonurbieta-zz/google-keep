@@ -1,0 +1,70 @@
+upstream redirectServer {
+    server ${PROXY_PASS};
+}
+
+server {
+    server_name ${PROXY_DOMAIN};
+    listen 443 ssl;
+
+    # Define o tempo de espera, em segundos, p/ leitura da resposta do Proxied Server (5 minutos).
+    proxy_read_timeout 300;
+
+    # Aumenta o tamanho do buffer para evitar escrita em disco
+    client_body_buffer_size 10K;
+    client_header_buffer_size 1k;
+    client_max_body_size 20m;
+    large_client_header_buffers 4 16k;
+
+    # Habilita o gzip
+    gzip on;
+    gzip_comp_level 9;
+    gzip_vary on;
+    gzip_min_length 256;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types text/plain text/css text/javascript application/javascript;
+    gzip_disable "MSIE [1-6]\.";
+
+    # Aumenta o tamanho da requisicao
+    proxy_buffers 8 64k;
+    proxy_buffer_size 64k;
+    proxy_headers_hash_max_size 64000;
+
+    ssl_certificate /etc/letsencrypt/live/${PROXY_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${PROXY_DOMAIN}/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location /api {
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Referer $http_referer;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host $server_name;
+
+        proxy_http_version 1.1;
+        proxy_buffers 16 16k;
+        proxy_buffer_size 16k;
+        proxy_read_timeout 900s;
+        proxy_send_timeout 900s;
+        proxy_connect_timeout 900s;
+        proxy_pass http://redirectServer;
+    }
+
+    location / {
+        index index.html index.htm;
+        root /usr/share/nginx/html;
+    }
+}
+
+server {
+    server_name ${PROXY_DOMAIN};
+    listen 80 default_server;
+
+    location / {
+        access_log off;
+        return 301 https://$host$request_uri;
+    }
+}
