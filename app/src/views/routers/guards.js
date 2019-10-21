@@ -1,4 +1,4 @@
-import { tokenApiClient } from '@/core/apiclient'
+import api from '@/core/apiclient'
 import store from '@/core/store'
 
 class RouterGuards {
@@ -43,7 +43,7 @@ class RouterGuards {
     }
 
     iAmNotLoggedIn () {
-        return !tokenApiClient.existToken()
+        return !api.tokenApiClient.existToken()
     }
 
     redirectToLogin (to, next) {

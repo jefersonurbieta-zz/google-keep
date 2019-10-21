@@ -1,15 +1,15 @@
-import { tokenApiClient, userApiClient } from '@/core/apiclient'
+import api from '@/core/apiclient'
 import { actionTypes, mutationTypes } from '@/core/constants'
 import axios from 'axios'
 
 export default {
 
     [actionTypes.ADD_TOKEN] (context, token) {
-        tokenApiClient.saveToken(token)
+        api.tokenApiClient.saveToken(token)
     },
 
     [actionTypes.REMOVE_TOKEN] () {
-        tokenApiClient.removeToken()
+        api.tokenApiClient.removeToken()
     },
 
     async [actionTypes.AFTER_LOGIN] ({ dispatch, commit }, data) {
@@ -19,17 +19,17 @@ export default {
     },
 
     async [actionTypes.CONFIRM_EMAIL] ({ dispatch }, emailConfirmedToken) {
-        const { data } = await userApiClient.confirmEmail(emailConfirmedToken)
+        const { data } = await api.userApiClient.confirmEmail(emailConfirmedToken)
         await dispatch(actionTypes.AFTER_LOGIN, data)
     },
 
     async [actionTypes.FORGET_PASSWORD] (context, email) {
-        const { data } = await userApiClient.forgetPassword(email)
+        const { data } = await api.userApiClient.forgetPassword(email)
         return data
     },
 
     async [actionTypes.LOGIN] ({ dispatch }, credencials) {
-        const { data } = await userApiClient.login(credencials)
+        const { data } = await api.userApiClient.login(credencials)
         await dispatch(actionTypes.AFTER_LOGIN, data)
     },
 
@@ -40,19 +40,19 @@ export default {
     },
 
     async [actionTypes.REGISTER] (context, userData) {
-        const { data } = await userApiClient.register(userData)
+        const { data } = await api.userApiClient.register(userData)
         return data
     },
 
     async [actionTypes.UPDATE_PASSWORD] ({ dispatch }, credencials) {
-        const { data } = await userApiClient.updatePassword(credencials)
+        const { data } = await api.userApiClient.updatePassword(credencials)
         await dispatch(actionTypes.AFTER_LOGIN, data)
     },
 
     async [actionTypes.VERIFY_TOKEN] ({ commit }) {
-        if(tokenApiClient.existToken()) {
-            const { data } = await userApiClient.profile(tokenApiClient.getToken())
-            commit(mutationTypes.SET_TOKEN, tokenApiClient.getToken())
+        if(api.tokenApiClient.existToken()) {
+            const { data } = await api.userApiClient.profile(api.tokenApiClient.getToken())
+            commit(mutationTypes.SET_TOKEN, api.tokenApiClient.getToken())
             commit(mutationTypes.SET_LOGGED_USER, data)
             return data
         }
@@ -85,12 +85,16 @@ export default {
         }
     },
 
-    async [actionTypes.ADD_POST] ({ commit }, P) {
-        if(tokenApiClient.existToken()) {
-            const { data } = await userApiClient.profile(tokenApiClient.getToken())
-            commit(mutationTypes.SET_TOKEN, tokenApiClient.getToken())
-            commit(mutationTypes.SET_LOGGED_USER, data)
-            return data
-        }
+    async [actionTypes.FIND_NOTES] ({ commit }) {
+        const {data} = await api.noteApiClient.find()
+        commit(mutationTypes.SET_NOTES, data)
+        return data
+    },
+
+    async [actionTypes.ADD_NOTE] ({ commit }, note) {
+        const {data} = await api.noteApiClient.add(note)
+        console.log(mutationTypes)
+        commit(mutationTypes.ADD_NOTE, data)
+        return data
     },
 }

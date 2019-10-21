@@ -5,14 +5,11 @@
             <login-form @submit="login"/>
             <login-footer/>
         </v-card>
-
-        <login-invate/>
     </container>
 </template>
 
 <script>
     import { actionTypes } from '@/core/constants'
-    import LoginInvate from '@/views/pages/external/login/LoginInvate'
     import Container from '../../commons/Container'
     import Headerbar from '../../commons/Headerbar'
     import LoginFooter from './LoginFooter'
@@ -20,7 +17,6 @@
 
     export default {
         components: {
-            LoginInvate,
             Container,
             Headerbar,
             LoginFooter,
@@ -50,3 +46,8 @@
         }
     }
 </script>
+
+<style lang="stylus">
+    /*.login-card*/
+    /*    min-width  500px*/
+</style>

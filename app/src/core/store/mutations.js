@@ -50,4 +50,15 @@ export default {
         state.uploadedFiles.push(uploadedFile)
     },
 
+    [mutationTypes.TOGGLE_ASIDE](state, open) {
+        state.asideOpen = open
+    },
+
+    [mutationTypes.SET_NOTES](state, notes) {
+        state.notes = notes
+    },
+
+    [mutationTypes.ADD_NOTE](state, note) {
+        state.notes.unshift(note)
+    },
 }

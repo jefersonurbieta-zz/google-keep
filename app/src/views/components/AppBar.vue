@@ -2,28 +2,23 @@
     <v-app-bar
         color="white"
         flat
-        fixed
+        clipped-left
         class="app-bar"
         app>
 
-        <v-btn icon>
-            <v-icon>fab fa-instagram</v-icon>
-        </v-btn>
-        |
-        <v-toolbar-title>Vuestagram</v-toolbar-title>
+        <v-app-bar-nav-icon @click="toggleAside"></v-app-bar-nav-icon>
 
-        <v-spacer/>
-
+        <img src="/img/main-logo.svg" width="30px"/>
+        <span class="title ml-3 mr-5">Keep</span>
         <v-text-field
             class="search-input"
-            outlined
+            solo-inverted
+            flat
             hide-details
-            placeholder="Busca"/>
-        <v-spacer/>
-
-        <v-btn icon>
-            <v-icon>far fa-heart</v-icon>
-        </v-btn>
+            label="Search"
+            prepend-inner-icon="search"
+        ></v-text-field>
+        <v-spacer></v-spacer>
 
         <v-btn icon>
             <v-icon>far fa-user</v-icon>
@@ -32,8 +27,15 @@
 </template>
 
 <script>
+    import {mutationTypes} from "../../core/constants";
+
     export default {
-        name: 'download-link'
+        name: 'app-bar',
+        methods: {
+            toggleAside() {
+                this.$store.commit(mutationTypes.TOGGLE_ASIDE, !this.$store.state.asideOpen)
+            }
+        }
     }
 </script>
 
@@ -46,10 +48,5 @@
 
         .v-toolbar__title
             padding-left 10px!important
-
-        .search-input
-            height 40px
-            .v-text-field__slot, fieldset
-                height 40px
 
 </style>

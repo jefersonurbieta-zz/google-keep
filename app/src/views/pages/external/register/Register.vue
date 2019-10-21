@@ -3,8 +3,8 @@
         <v-card flat class="register-card border-default pa-5">
             <headerbar/>
             <register-form @submit="register"/>
+            <register-footer/>
         </v-card>
-        <register-back/>
     </container>
 </template>
 
@@ -13,10 +13,10 @@
     import Container from "../../commons/Container"
     import Headerbar from "../../commons/Headerbar"
     import RegisterForm from "./RegisterForm"
-    import RegisterBack from "./RegisterBack"
+    import RegisterFooter from "./RegisterFooter"
 
     export default {
-        components: {Container, Headerbar, RegisterBack, RegisterForm},
+        components: {Container, Headerbar, RegisterFooter, RegisterForm},
         data() {
             return {
                 name: '',

@@ -9,6 +9,8 @@ import { sendEmail } from '@codate/email'
 
 //  publico/proposta
 import status from './router/public/status/Status'
+import createNote from './router/notes/CreateNote'
+import findNotes from './router/notes/FindNotes'
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -36,6 +38,9 @@ app.use('/api', sendEmail)
 
 //  publico/status
 app.use('/api', status)
+
+app.use('/api', createNote)
+app.use('/api', findNotes)
 
 app.use(validationError)
 app.use(joiError)

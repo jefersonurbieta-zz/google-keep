@@ -10,5 +10,7 @@ export default {
     UPDATE_PASSWORD: 'updatePassword',
     VERIFY_TOKEN: 'verifyToken',
     UPLOAD_FILE: 'uploadFile',
-    ADD_POST: 'addPost'
+
+    FIND_NOTES: 'FIND_NOTES',
+    ADD_NOTE: 'ADD_NOTE'
 }

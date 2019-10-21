@@ -1,6 +1,7 @@
 export default {
     defaultLoadingMessage: 'Carregando...',
     loading: false,
+    asideOpen: true,
     token: '',
 
     file: {
@@ -9,4 +10,6 @@ export default {
     },
     uploadFileProgress: {},
     uploadedFiles: [],
+
+    notes: [],
 }

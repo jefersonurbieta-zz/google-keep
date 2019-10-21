@@ -1,6 +1,7 @@
 <template>
     <v-app class="my-template-default">
         <app-bar/>
+        <app-aside/>
         <v-content>
             <v-container class="app-container">
                 <slot/>

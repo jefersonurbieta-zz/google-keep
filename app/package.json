@@ -14,9 +14,6 @@
         "material-design-icons-iconfont": "^3.0.3",
         "moment": "^2.22.2",
         "moment-timezone": "^0.5.26",
-        "soundex": "^0.2.1",
-        "string-mask": "^0.3.0",
-        "string-similarity": "^1.2.0",
         "stylus": "^0.54.5",
         "stylus-loader": "^3.0.2",
         "vee-validate": "^2.1.0-beta.11",
@@ -26,7 +23,6 @@
         "vue-router": "^3.0.1",
         "vue-template-compiler": "^2.6.10",
         "vuetify": "^2.0.19",
-        "vuetify-datetime-picker": "^2.1.0",
         "vuex": "^3.0.1"
     },
     "devDependencies": {

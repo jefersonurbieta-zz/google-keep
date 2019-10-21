@@ -1,7 +1,9 @@
+import noteApiClient from './NoteApiClient'
 import tokenApiClient from './TokenApiClient'
 import userApiClient from './UserApiClient'
 
-export {
+export default {
+    noteApiClient,
     tokenApiClient,
     userApiClient
 }
