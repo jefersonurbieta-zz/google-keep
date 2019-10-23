@@ -58,13 +58,10 @@
         data: () => ({
             drawer: null,
             items: [
-                { icon: 'lightbulb_outline', text: 'Notes' },
+                { icon: 'lightbulb_outline', text: 'Notas' },
                 { divider: true },
-                { heading: 'Labels' },
-                { icon: 'add', text: 'Create new label' },
-                { divider: true },
-                { icon: 'archive', text: 'Archive' },
-                { icon: 'delete', text: 'Trash' },
+                { icon: 'archive', text: 'Arquivo' },
+                { icon: 'delete', text: 'Lixeira' },
             ],
         })
     }

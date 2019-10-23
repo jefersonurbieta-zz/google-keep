@@ -12,5 +12,9 @@ export default {
     UPLOAD_FILE: 'uploadFile',
 
     FIND_NOTES: 'FIND_NOTES',
-    ADD_NOTE: 'ADD_NOTE'
+    ADD_NOTE: 'ADD_NOTE',
+
+    ARCHIVE_NOTE: 'ARCHIVE_NOTE',
+    FIX_NOTE: 'FIX_NOTE',
+    REMOVE_NOTE: 'REMOVE_NOTE',
 }

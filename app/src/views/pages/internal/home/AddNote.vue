@@ -26,23 +26,17 @@
                 ></v-text-field>
 
                 <v-card-actions v-show="editing">
-                    <v-btn icon>
-                        <v-icon>fas fa-ellipsis-h</v-icon>
-                    </v-btn>
-                    <v-btn icon>
-                        <v-icon>far fa-heart</v-icon>
-                    </v-btn>
-                    <v-btn icon>
-                        <v-icon>far fa-comment-dots</v-icon>
-                    </v-btn>
-
                     <v-spacer/>
-
-
                     <v-btn
                         depressed
-                        @click="finishEditing">
+                        @click="cancelEditing">
                         Fechar
+                    </v-btn>
+                    <v-btn
+                        color="primary"
+                        depressed
+                        @click="finishEditing">
+                        Salvar
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -65,6 +59,10 @@
             startEditing(start) {
                 this.editing = start
                 this.$refs.descriptionNote.$el.focus()
+            },
+            cancelEditing() {
+                this.editing = false
+                this.note = {}
             },
             async finishEditing() {
                 this.editing = false

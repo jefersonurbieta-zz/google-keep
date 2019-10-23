@@ -97,4 +97,25 @@ export default {
         commit(mutationTypes.ADD_NOTE, data)
         return data
     },
+
+    async [actionTypes.ARCHIVE_NOTE] ({ commit }, note) {
+        const {data} = await api.noteApiClient.add(note)
+        console.log(mutationTypes)
+        commit(mutationTypes.ADD_NOTE, data)
+        return data
+    },
+
+    async [actionTypes.FIX_NOTE] ({ commit }, note) {
+        const {data} = await api.noteApiClient.add(note)
+        console.log(mutationTypes)
+        commit(mutationTypes.ADD_NOTE, data)
+        return data
+    },
+
+    async [actionTypes.REMOVE_NOTE] ({ commit }, note) {
+        const {data} = await api.noteApiClient.add(note)
+        console.log(mutationTypes)
+        commit(mutationTypes.ADD_NOTE, data)
+        return data
+    },
 }
